@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  builder:
+    image: lambci/lambda:build-nodejs12.x
+    tty: true
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      BASE_URL: ${BASE_URL}
+      BASE_PATH: ${BASE_PATH}
+    volumes:
+      - ..:/var/task
+      - yarn_bin:/yarn
+      - node_modules:/var/task/node_modules
+      - node_modules_production:/dist/node_modules
+    command: /var/task/build/build-package-in-container.sh
+
+volumes:
+  yarn_bin: {}
+  node_modules: {}
+  node_modules_production: {}
