@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Serverless Nuxt App
+
+Transform:
+  - AWS::Serverless-2016-10-31
+
+Resources:
+  NuxtApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: serverless-nuxt-app
+      StageName: v1
+  NuxtFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: serverless-nuxt-app
+      CodeUri: ./lambda-package.zip
+      Handler: .nuxt/dist/lambda.handler
+      Runtime: nodejs12.x
+      MemorySize: 512
+      Timeout: 10
+      Description: Serverless Nuxt App
+      Environment:
+        Variables:
+          NODE_ENV: production
+      Events:
+        Root:
+          Type: Api
+          Properties:
+            Path: "/"
+            Method: any
+            RestApiId: !Ref NuxtApi
+        Nuxt:
+          Type: Api
+          Properties:
+            Path: "/{proxy+}"
+            Method: any
+            RestApiId: !Ref NuxtApi
+  # Lambda 関数用の CloudWatch LogGroup
+  # あらかじめ作成してログ保持日数が指定しておく
+  NuxtFunctionLog:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /aws/lambda/serverless-nuxt-app
+      RetentionInDays: 7
+
+Outputs:
+  ApiEndpoint:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${NuxtApi}.execute-api.${AWS::Region}.amazonaws.com/v1/"

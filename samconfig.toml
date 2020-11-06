@@ -1,0 +1,9 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "nuxt-serverless-app"
+s3_bucket = "your-bucket-name"
+s3_prefix = "sam-src/nuxt-serverless-app"
+region = "ap-northeast-1"
+capabilities = "CAPABILITY_IAM"

@@ -3,6 +3,7 @@
     <div>
       <Logo />
       <h1 class="title">nuxt-serverless-app</h1>
+      <pre>{{ data }}</pre>
       <div class="links">
         <a
           href="https://nuxtjs.org/"
@@ -27,8 +28,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { Context } from '@nuxt/types'
 
-export default Vue.extend({})
+export default Vue.extend({
+  async asyncData(ctx: Context) {
+    const { data } = await ctx.$axios.post('/api/echo', { message: 'hoge' })
+    return { data: JSON.stringify(data) }
+  },
+})
 </script>
 
 <style>

@@ -27,10 +27,20 @@ export default {
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [],
+  modules: ['@nuxtjs/axios'],
+
+  router: {
+    base: process.env.BASE_PATH || '/',
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    publicPath: (process.env.BASE_URL || '') + '/_nuxt/',
+  },
+
+  axios: {
+    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+  },
 
   serverMiddleware: ['~~/server/index.ts'],
 }
