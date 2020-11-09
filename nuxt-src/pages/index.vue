@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div>
-      <Logo />
+      <img src="~/assets/images/nuxt-logo.png" alt="" />
       <h1 class="title">nuxt-serverless-app</h1>
       <pre>{{ data }}</pre>
       <div class="links">
