@@ -6,8 +6,10 @@ services:
     tty: true
     environment:
       NODE_ENV: ${NODE_ENV}
-      BASE_URL: ${BASE_URL}
       BASE_PATH: ${BASE_PATH}
+      ASSETS_URL: ${ASSETS_URL}
+      SERVER_API_BASE_URL: ${SERVER_API_BASE_URL}
+      PUBLIC_API_BASE_URL: ${PUBLIC_API_BASE_URL}
     volumes:
       - ..:/var/task
       - yarn_bin:/yarn

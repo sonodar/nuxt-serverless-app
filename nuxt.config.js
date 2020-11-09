@@ -35,11 +35,17 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    publicPath: (process.env.BASE_URL || '') + '/_nuxt/',
+    publicPath: process.env.ASSETS_URL || '/_nuxt/',
   },
 
   axios: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    baseURL: process.env.SERVER_API_BASE_URL,
+    browserBaseURL: process.env.PUBLIC_API_BASE_URL,
+    // CloudFront > Lambda > API Gateway は CloudFront に拒否されるので
+    // それを判断している via ヘッダを削除する。
+    // https://qiita.com/ykunimoto/items/9509aad5f024cb547fb1
+    // https://qiita.com/kubotak/items/fc1a877f99a569fc54bb
+    headers: { common: { via: false } },
   },
 
   serverMiddleware: ['~~/server/index.ts'],
