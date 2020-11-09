@@ -1,19 +1,17 @@
-variable aws_region { default = "ap-northeast-1" }
 variable base_tags { type = map }
-variable app_stack_name {}
 variable domain_name {}
-variable hosted_zone_id {}
+variable comment { default = "" }
 variable assets_bucket_name {}
-variable log_bucket_name {}
-variable log_bucket_lifecycle_enabled { default = true }
-variable log_bucket_transition_onezone_days { default = 60 }
-variable log_bucket_transition_glacier_days { default = 180 }
-variable log_bucket_expiration_days { default = 365 }
-
-variable cloudfront_comment { default = "" }
-variable is_ipv6_enabled { default = true }
-variable assets_bucket_prefix { default = "site" }
-variable log_bucket_prefix { default = "cf/" }
+variable assets_bucket_regional_domain_name {}
+variable assets_bucket_prefix { default = "" }
+variable is_ipv6_enabled { type = bool }
+variable rest_api_id {}
+variable rest_api_region {}
+variable rest_api_deployment_stage_name {}
+variable log_bucket_name { default = "" }
+variable log_bucket_prefix { default = "" }
+variable acm_certificate_arn {}
+variable hosted_zone_id {}
 
 variable default_lambda_associations {
   type = list(object({
